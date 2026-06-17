@@ -1,20 +1,32 @@
-# Oh My Zsh installation path
-export ZSH="$HOME/.oh-my-zsh"
+# .zshrc
+# Loaded second after .zprofile
 
-zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+# ==============================================================================
+# History 
+# ==============================================================================
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
 
-COMPLETION_WAITING_DOTS="true"
+setopt SHARE_HISTORY      # Shares history between sessions
+setopt HIST_IGNORE_DUPS   # Don't save duplicate commands
+setopt HIST_IGNORE_SPACE  # Don't save  command when prefixed with space
 
-HIST_STAMPS="yyyy-mm-dd"
+# ==============================================================================
+# Shell Behavior
+# ==============================================================================
+setopt AUTOCD             # Automatically cd into dir when we type it
+setopt NOBEEP             # Remove terminal beeping sounds
+setopt NUMERIC_GLOB_SORT  # Sort files 1-9,10-11,... vs 1,10,11,...
 
-plugins=(
-  git
-  zsh-syntax-highlighting
-  zsh-autosuggestions
-  web-search
-  ansible
-)
+# ==============================================================================
+# Aliases
+# ==============================================================================
+alias l='ls -lah'   # List all files (including hidden) in long format with human-readable sizes
+alias la='ls -lAh'  # Same as above but without . and ..
+alias ll='ls -lh'   # List all non-hidden files in long format with human-readable sizes
+alias v='nvim'      # Open neovim
+alias edar='v /etc/nix-darwin/flake.nix'       # Edit Nix-Darwin flake.nix
 
-source $ZSH/oh-my-zsh.sh
-
+# Initialize Starship
 eval "$(starship init zsh)"
